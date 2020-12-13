@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+<meta charset="ISO-8859-1">
+<title>Update</title>
+</head>
+<body>
+<a th:href="@{/delivery}">Indietro</a>
+<h1>Update Delivery</h1>
+<form action="#" th:action="@{/delivery/executeUpdate}" method="post" th:object="${deliveryUpdateModel}">
+
+	<input type="hidden" th:field="*{id}">
+	<p style="color:red" th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></p>
+	
+	<p>Description: <input type="text" th:field="*{description}"/></p>
+    <p style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+
+    <p>Shipping Date: <input type="date" th:field="*{shippingDate}"/></p>
+    <p style="color:red" th:if="${#fields.hasErrors('shippingDate')}" th:errors="*{shippingDate}"></p>
+
+    <p>Price: <input type="number" step="0.05" th:field="*{price}"/></p>
+    <p style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
+    
+    <select th:field="*{customerDto.id}">
+    <option th:each="customer : ${customersUpdateDelivery}" th:selected="*{customerDto}"
+    		th:value="${customer.id}" th:text="${customer.name}"></option>
+	</select>
+
+    <p><input type="submit" value="Conferma"/></p>
+    
+</form>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+<meta charset="ISO-8859-1">
+<title>Show Customer</title>
+</head>
+<body>
+
+<main role="main" class="container">
+<p><a th:href="@{/customer}">Indietro</a></p>
+		<div class='card' th:object="${customerShow}">
+			<div class='card-header'><h1>Visualizza Dettaglio Customer</h1></div>
+			
+			<div class='card-body'>
+
+				<dl class="row">
+					<dt>Name:</dt>
+					<dd th:text="*{name}"></dd>
+				</dl>
+
+				<dl class="row">
+					<dt>Mobile:</dt>
+					<dd th:text="*{mobile}"></dd>
+				</dl>
+
+				<dl class="row">
+					<dt>Address:</dt>
+					<dd th:text="*{address}"></dd>
+				</dl>	
+
+ 			</div>
+		
+		</div> 
+		<!-- end main container -->
+	</main>
+
+</body>
+</html>

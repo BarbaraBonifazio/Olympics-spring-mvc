@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+<meta charset="ISO-8859-1">
+<title>Show Delivery</title>
+</head>
+<body>
+
+<main role="main" class="container">
+<p><a th:href="@{/delivery}">Indietro</a></p>
+		<div class='card' th:object="${deliveryShow}">
+			<div class='card-header'><h1>Visualizza Dettaglio Delivery</h1></div>
+			
+			<div class='card-body'>
+			
+				<dl class="row">
+					<dt>Description:</dt>
+					<dd th:text="*{description}"></dd>
+				</dl>
+
+				<dl class="row">
+					<dt>Shipping Date:</dt>
+					<dd th:text="*{shippingDate}"></dd>
+				</dl>
+
+				<dl class="row">
+					<dt>Price:</dt>
+					<dd th:text="*{price}"></dd>
+				</dl>
+				
+				<dl class="row">
+					<dt>Customer:</dt>
+					<dd th:text="*{customerDto.name}"></dd>
+				</dl>	
+
+ 			</div>
+		
+		</div> 
+		<!-- end main container -->
+	</main>
+
+</body>
+</html>

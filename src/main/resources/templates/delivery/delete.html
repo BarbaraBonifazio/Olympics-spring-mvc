@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+<meta charset="ISO-8859-1">
+<title>Delete</title>
+</head>
+<body>
+		<div class='card'>
+				<div class='card-header'>
+					<h1>Confermi di voler eliminare questa Delivery?</h1>
+				</div>
+	
+	
+				<div class='card-body'>
+
+						<div class="form-row">
+							<div class="form-group col-md-6">	
+								<a th:href="@{/delivery}">Annulla</a>	
+							</div>
+							
+							<a th:href="@{/delivery/executeDelete/(idDeliveryDelete=${idDeliveryDelete})}">Conferma</a>
+	
+						</div>
+				</div>
+		</div>
+</body>
+</html>

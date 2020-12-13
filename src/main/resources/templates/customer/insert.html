@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<a th:href="@{/customer}">Indietro</a>
+<h1>Insert New Customer</h1>
+<form action="#" th:action="@{/customer/executeInsert}" method="post" th:object="${customerInsertModel}">
+    <p>Name: <input type="text" th:field="*{name}"/></p>
+    <p style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+
+    <p>Mobile: <input type="text" th:field="*{mobile}"/></p>
+    <p style="color:red" th:if="${#fields.hasErrors('mobile')}" th:errors="*{mobile}"></p>
+
+    <p>Address: <input type="text" th:field="*{address}"/></p>
+    <p style="color:red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
+
+    <p><input type="submit" value="Submit"/></p>
+    
+</form>
+</body>
+</html>

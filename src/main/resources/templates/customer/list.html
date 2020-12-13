@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<p><a th:href="@{/}">Indietro</a></p>
+<h1>Dashboard customers</h1>
+<div>
+    <form action="#" th:action="@{/customer}" th:object="${searchFilters}" method="get">
+        <p>Name: <input th:field="*{name}" type="text"></p>
+        <p>Address: <input th:field="*{address}" type="text"></p>
+        <p>Mobile: <input th:field="*{mobile}" type="text"></p>
+        <p><input type="submit" value="Cerca"/></p> <p><a th:href="@{/customer/insert}">Inserisci Nuovo</a></p>
+       
+    </form>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Mobile</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+    <tr th:each="customer : ${customers}" th:object="${customer}">
+        <td th:text="*{name}"></td>
+        <td th:text="*{address}"></td>
+        <td th:text="*{mobile}"></td>
+        
+        <td>
+        <a th:href="@{/customer/show/{customerId}(customerId=*{id})}">Visualizza</a>
+        <a th:href="@{/customer/update/{customerId}(customerId=*{id})}">Modifica</a>
+        <a th:href="@{/customer/delete/{idCustomerDelete}(idCustomerDelete=*{id})}">Elimina</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+ 	<div th:object="${customerDeleteModel}">
+    <p style="color:red" th:if="${#fields.hasErrors('idCustomerDelete')}" th:errors="*{idCustomerDelete}"></p>
+    </div>
+
+</body>
+</html>

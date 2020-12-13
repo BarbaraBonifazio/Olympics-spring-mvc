@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+<meta charset="ISO-8859-1">
+<title>Delete</title>
+</head>
+<body>
+		<div class='card'>
+				<div class='card-header'>
+					<h1>Confermi di voler eliminare questo Customer?</h1>
+					
+				</div>
+	
+				<div class='card-body'>
+					
+					<div class="form-row">
+						<div class="form-group col-md-6">	
+							<a th:href="@{/customer}">Annulla</a>	
+						</div>
+						<div th:object="${customerDelete}">
+						<a th:href="@{/customer/executeDelete/{idCustomerDelete}(idCustomerDelete=*{idCustomerDelete})}">Conferma</a>
+						</div>
+					</div>
+				</div>
+		</div>
+
+</body>
+</html>

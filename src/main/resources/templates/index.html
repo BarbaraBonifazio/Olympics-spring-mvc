@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestione ordini</title>
+    <th:block th:replace="fragments/general.html :: imports"> </th:block>
+</head>
+<body>
+	<main role="main">
+		<nav th:replace="fragments/general.html :: navbar"></nav>
+		<header th:replace="fragments/general.html :: header"> </header>
+		
+			<!-- Main jumbotron for a primary marketing message or call to action -->
+				<div class="jumbotron" style="background-color:#e0e0e0">
+					<div class="container">
+					<br><br>
+						<h1 class="display-3 text-center">Welcome to Deliveries!</h1>
+						<p class="text-center">Track deliveries and look for customers!</p>
+			
+					</div>
+				</div>
+		
+			<div class="container text-center">
+				<div class="row">
+					<div class="col-md-6" Style="padding-top:120px">
+							<h2>Customers</h2>
+							<p> Access to our Customers! </p>
+							<p>
+								<a class="btn btn-secondary" th:href="@{/customer}" role="button">
+								Go &raquo;</a>
+							</p>
+						</div>
+						
+						<div class="col-md-6" Style="padding-top:120px">
+							<h2>Deliveries</h2>
+							<p> Access to our Deliveries! </p>
+							<p>
+								<a class="btn btn-secondary" th:href="@{/delivery}" role="button">
+								Go &raquo;</a>
+							</p>
+					</div>
+				</div>
+				
+			</div>
+			
+		
+	</main>
+	<br><br><br><br>
+					<div th:include="fragments/general.html :: footer"> </div>
+</body>
+
+
+</html>
