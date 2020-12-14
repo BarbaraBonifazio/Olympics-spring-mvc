@@ -24,5 +24,11 @@ public class CompetitionDto {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public SportDto getSportDto() {
+		return sportDto;
+	}
+	public void setSportDto(SportDto sportDto) {
+		this.sportDto = sportDto;
+	}
 	
 }

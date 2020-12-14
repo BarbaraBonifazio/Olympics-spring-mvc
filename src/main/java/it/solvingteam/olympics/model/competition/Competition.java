@@ -4,19 +4,25 @@ import java.time.LocalDate;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import it.solvingteam.olympics.model.enrollment.Enrollment;
 import it.solvingteam.olympics.model.sport.Sport;
 
+@Entity
 public class Competition {
 
+	@Id
+	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Integer numberAthlets;
 	private LocalDate competitionDate;
@@ -25,8 +31,8 @@ public class Competition {
 	@Enumerated(EnumType.STRING)
 	private CompetitionStatus status;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "sport_id", referencedColumnName = "id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "sport_id", nullable = false)
 	private Sport sport;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "competition", orphanRemoval = true)

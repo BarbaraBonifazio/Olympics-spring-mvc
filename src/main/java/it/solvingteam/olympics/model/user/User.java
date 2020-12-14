@@ -3,7 +3,6 @@ package it.solvingteam.olympics.model.user;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-
 import it.solvingteam.olympics.model.Person;
 import it.solvingteam.olympics.model.Role;
 
@@ -40,5 +39,25 @@ public class User extends Person{
 		this.role = role;
 	}
 	
+	public boolean isOrganizzatore() {
+		if (this.role.equals(Role.ORGANIZZATORE)) {
+			return true;
+		}
+		return false;
+	}	
+	
+	public boolean isRappresentanteNazione() {
+		if (this.role.equals(Role.RAPPRESENTANTE_NAZIONE)) {
+			return true;
+		}
+		return false;
+	}	
+	
+	public boolean isAtleta() {
+		if (this.role.equals(Role.ATLETA)) {
+			return true;
+		}
+		return false;
+	}	
 	
 }

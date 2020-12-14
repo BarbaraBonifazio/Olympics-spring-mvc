@@ -2,7 +2,6 @@ package it.solvingteam.olympics.model.athlete;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -46,7 +45,7 @@ public class Athlete extends Person {
 	@ManyToMany
 	@JoinTable(name = "athlete_sport", joinColumns = @JoinColumn(name = "athlete_id", referencedColumnName = "ID"), 
 				inverseJoinColumns = @JoinColumn(name = "sport_id", referencedColumnName = "ID"))
-	private Set<Sport> sports = new HashSet<Sport>(2); // per un totale di 3 discipline
+	private Set<Sport> sports = new HashSet<Sport>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "athlete", orphanRemoval = true)
 	private Set<Enrollment> enrollments = new HashSet<>();

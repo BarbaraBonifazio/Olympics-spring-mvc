@@ -33,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/auth/signup")                    .permitAll()
                     .anyRequest()                    .authenticated()
                 .and()
+                .logout().logoutUrl("/auth/signout").logoutSuccessUrl("/auth/signin").and()
                 .formLogin()
                     .loginPage("/auth/signin")
                     .loginProcessingUrl("/auth/signin")
