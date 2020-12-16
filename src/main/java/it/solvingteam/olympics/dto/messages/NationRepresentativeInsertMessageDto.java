@@ -1,25 +1,22 @@
 package it.solvingteam.olympics.dto.messages;
-
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
-public abstract class PersonDto {
 
-	@NotNull(message = "The id doesn't exist")
-	private String id;
+public class NationRepresentativeInsertMessageDto {
+
 	@NotEmpty(message = "The name is required")
 	private String name;
 	@NotEmpty(message = "The surname is required")
 	private String surname;
 	@NotEmpty(message = "The fiscal code is required")
 	private String fiscalCode;
+
+	@Valid
+	private UserSignupMessageDto userSignupMessageDto;
+	@NotEmpty(message = "Required field")
+	private String nation;
 	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
 	public String getName() {
 		return name;
 	}
@@ -38,5 +35,19 @@ public abstract class PersonDto {
 	public void setFiscalCode(String fiscalCode) {
 		this.fiscalCode = fiscalCode;
 	}
-
+	public UserSignupMessageDto getUserSignupMessageDto() {
+		return userSignupMessageDto;
+	}
+	public void setUserSignupMessageDto(UserSignupMessageDto userSignupMessageDto) {
+		this.userSignupMessageDto = userSignupMessageDto;
+	}
+	public String getNation() {
+		return nation;
+	}
+	public void setNation(String nation) {
+		this.nation = nation;
+	}
+	
+	
+	
 }

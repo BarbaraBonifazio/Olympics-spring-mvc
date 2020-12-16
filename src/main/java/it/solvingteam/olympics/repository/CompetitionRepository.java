@@ -1,5 +1,9 @@
 package it.solvingteam.olympics.repository;
 
-public interface CompetitionRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import it.solvingteam.olympics.model.competition.Competition;
+
+public interface CompetitionRepository extends JpaRepository<Competition, Long>{
 
 }

@@ -1,10 +1,10 @@
-package it.solvingteam.olympics.dto.messages;
+package it.solvingteam.olympics.dto;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class SportDto {
-
+public class NationDto {
+	
 	@NotNull(message = "The id doesn't exist")
 	private String id;
 	@NotEmpty(message = "Required field")
@@ -22,5 +22,4 @@ public class SportDto {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
 }

@@ -1,4 +1,4 @@
-package it.solvingteam.olympics.dto.messages;
+package it.solvingteam.olympics.dto;
 
 import javax.validation.constraints.NotNull;
 

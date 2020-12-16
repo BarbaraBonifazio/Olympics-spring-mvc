@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign-in</title>
+    
+     <!-- Required meta tags -->
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	  <!-- Bootstrap CSS -->
+	  <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}" >
+	  <!-- CSS Personalizzato -->
+	  <link rel="stylesheet" th:href="@{/mystyle/css/global.css}" >
+	  
+	  <!-- Favicons -->
+	<link rel="apple-touch-icon" th:href="@{/assets/img/favicons/apple-touch-icon.png}" th:sizes="180x180">
+	<link rel="icon" th:href="@{/assets/img/favicons/favicon-32x32.png}" th:sizes="32x32" th:type="@{image/png}">
+	<link rel="icon" th:href="@{/assets/img/favicons/favicon-16x16.png}" th:sizes="16x16" th:type="@{image/png}">
+	<link rel="manifest" th:href="@{/assets/img/favicons/manifest.json}">
+	<link rel="mask-icon" th:href="@{/assets/img/favicons/safari-pinned-tab.svg}" color="#563d7c">
+	<link rel="icon" th:href="@{/assets/img/favicons/favicon.ico}">
+	<script th:src="@{/assets/js/jquery-3.4.1.min.js}"></script>
+	<meta name="msapplication-config" content="${pageContext.request.contextPath}/assets/img/favicons/browserconfig.xml">
+	
+	
+	<!-- Custom styles for this template -->
+	  <link th:href="@{/assets/css/signin.css}" rel="stylesheet">	  
+    
+</head>
+<body class="text-center">
+<main role="main" class="container">
+<div class='card-body' style="width: 18rem;">
+<form class="form-signin" action="#" th:action="@{/nationRepresentative/signup}" method="post" th:object="${nationRepresentativeInsertModel}" 
+					 Style="margin:200px">
+
+
+<h2 class="h2 mb-2 font-weight-normal" style="color:#0056b3">Registra Rappresentante Nazione</h2>
+<br>
+
+	<p>Nome: <input type="text" th:field="*{name}"/></p>
+	<p style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+	
+	<p>Cognome: <input type="text" th:field="*{surname}"/></p>
+	<p style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
+	
+	<p>Codice Fiscale: <input type="text" th:field="*{fiscalCode}"/></p>
+    <p style="color:red" th:if="${#fields.hasErrors('fiscalCode')}" th:errors="*{fiscalCode}"></p>
+    
+    <p style="color:#0056b3">Username: <input type="text" th:field="*{userSignupMessageDto.username}"/></p>
+    <p style="color:red" th:if="${#fields.hasErrors('userSignupMessageDto.username')}" th:errors="*{userSignupMessageDto.username}"></p>
+    
+    <p style="color:#0056b3">Password: <input type="password" th:field="*{userSignupMessageDto.password}"/></p>
+    <p style="color:red" th:if="${#fields.hasErrors('userSignupMessageDto.password')}" th:errors="*{userSignupMessageDto.password}"></p>
+    
+    <p>Ripetere la Password: <input type="password" th:field="*{userSignupMessageDto.repeatePassword}"/></p>
+    <p style="color:red" th:if="${#fields.hasErrors('userSignupMessageDto.repeatePassword')}" th:errors="*{userSignupMessageDto.repeatePassword}"></p>
+    
+    <p>Nazione</p>
+    <select th:field="*{nation}">
+    <option value="">Seleziona Nazione</option>
+    <option th:each="nation : ${nationRepresentativeInsertNation}" th:value="${nation.id}" th:text="${nation.name}"></option>
+	</select>
+	<p style="color:red" th:if="${#fields.hasErrors('nation')}" th:errors="*{nation}"></p>
+	<hr>
+    
+    <p><input class="btn btn-outline-primary btn-md" type="submit" value="Submit"/></p>
+
+</form>
+</div>
+</main>
+
+</body>
+</html>

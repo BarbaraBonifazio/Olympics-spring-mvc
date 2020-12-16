@@ -1,10 +1,9 @@
-package it.solvingteam.olympics.dto.messages;
+package it.solvingteam.olympics.dto;
 
 public class NationRepresentativeDto extends PersonDto{
 
 	private AthleteDto athleteDto;
 	private UserDto userDto;
-	
 	private NationDto nationDto;
 
 	public AthleteDto getAthleteDto() {

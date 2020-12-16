@@ -28,12 +28,12 @@ public class UserSignupMessageValidator implements Validator {
         UserSignupMessageDto userSignupMessageDto = (UserSignupMessageDto) o;
 
         if (!userSignupMessageDto.getPassword().equals(userSignupMessageDto.getRepeatePassword())) {
-            errors.rejectValue("repeatePassword", "passwordsDoesntMatch", "Password doesn't match");
+            errors.rejectValue("userSignupMessageDto.repeatePassword", "passwordsDoesntMatch", "Password doesn't match");
         }
 
         Optional<User> user = userService.findUserByUSername(userSignupMessageDto.getUsername());
         if (user.isPresent()) {
-            errors.rejectValue("username", "usernameAlreadyExists", "Username already exists");
+            errors.rejectValue("userSignupMessageDto.username", "usernameAlreadyExists", "Username already exists");
         }
     }
 }

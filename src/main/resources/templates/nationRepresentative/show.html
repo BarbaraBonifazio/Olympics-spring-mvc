@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+<meta charset="ISO-8859-1">
+<title>Show Nation Representative</title>
+</head>
+<body>
+
+<main role="main" class="container">
+<p><a th:href="@{nationRepresentative/registerRepresentationOrganizzatore}">Indietro</a></p>
+		<div class='card' th:object="${nationRepresentativeShow}">
+			<div class='card-header'><h1>Visualizza Dettaglio Rappresentante Nazione</h1></div>
+			
+			<div class='card-body'>
+			
+				<dl class="row">
+					<dt>Nome:</dt>
+					<dd th:text="*{name}"></dd>
+				</dl>
+
+				<dl class="row">
+					<dt>Surname:</dt>
+					<dd th:text="*{surname}"></dd>
+				</dl>
+
+				<dl class="row">
+					<dt>Codice Fiscale:</dt>
+					<dd th:text="*{fiscalCode}"></dd>
+				</dl>
+				
+				<dl class="row">
+					<dt>Nazione:</dt>
+					<dd th:text="*{nationDto.name}"></dd>
+				</dl>
+				
+				<dl class="row">
+					<dt>Atleti Nazionali:</dt>
+					<dd th:text="*{athleteDtoList}"></dd>
+					
+				</dl>		
+
+ 			</div>
+		
+		</div> 
+		<!-- end main container -->
+	</main>
+
+</body>
+</html>

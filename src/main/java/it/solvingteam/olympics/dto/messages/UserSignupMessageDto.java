@@ -4,6 +4,7 @@ import javax.validation.constraints.NotEmpty;
 
 public class UserSignupMessageDto {
 
+	private String id;
 
     @NotEmpty(message = "Required field")
     private String username;
@@ -13,8 +14,18 @@ public class UserSignupMessageDto {
 
     @NotEmpty(message = "Required field")
     private String repeatePassword;
+    
+    
 
-    public String getUsername() {
+    public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
         return username;
     }
 
@@ -37,4 +48,5 @@ public class UserSignupMessageDto {
     public void setRepeatePassword(String repeatePassword) {
         this.repeatePassword = repeatePassword;
     }
+
 }

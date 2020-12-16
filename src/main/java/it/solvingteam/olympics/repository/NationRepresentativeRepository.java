@@ -1,5 +1,10 @@
 package it.solvingteam.olympics.repository;
 
-public interface NationRepresentativeRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import it.solvingteam.olympics.model.nationRepresentative.NationRepresentative;
+
+public interface NationRepresentativeRepository extends JpaRepository<NationRepresentative, Long>{
+
 
 }

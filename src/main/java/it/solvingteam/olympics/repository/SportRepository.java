@@ -1,5 +1,9 @@
 package it.solvingteam.olympics.repository;
 
-public interface SportRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import it.solvingteam.olympics.model.sport.Sport;
+
+public interface SportRepository extends JpaRepository<Sport, Long>{
 
 }

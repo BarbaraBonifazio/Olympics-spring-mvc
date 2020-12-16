@@ -5,8 +5,6 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,16 +12,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import it.solvingteam.olympics.model.Person;
-import it.solvingteam.olympics.model.Role;
 import it.solvingteam.olympics.model.athlete.Athlete;
 import it.solvingteam.olympics.model.nation.Nation;
 import it.solvingteam.olympics.model.user.User;
 
 @Entity
 public class NationRepresentative extends Person{
-	
-	@Enumerated(EnumType.STRING)
-	private Role role;
 	
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "nation_id", referencedColumnName = "id")
@@ -58,14 +52,6 @@ public class NationRepresentative extends Person{
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
 	}
 	
 }

@@ -1,7 +1,11 @@
 package it.solvingteam.olympics.mapper;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.springframework.stereotype.Component;
-import it.solvingteam.olympics.dto.messages.AthleteDto;
+
+import it.solvingteam.olympics.dto.AthleteDto;
 import it.solvingteam.olympics.model.athlete.Athlete;
 
 
@@ -25,6 +29,28 @@ public class AthleteMapper extends AbstractMapper<Athlete, AthleteDto>{
 		AthleteDto.setBronzeMedals(String.valueOf(entity.getBronzeMedals()));
 		
         return AthleteDto;
+    }
+	
+	public Set<AthleteDto> convertEntityToListDto(Set<Athlete> entity) {
+		if (entity == null) {
+            return null;
+        }
+		
+		Set<AthleteDto> athleteDtoList = new TreeSet<AthleteDto>();
+		for(AthleteDto athleteDto : athleteDtoList) {
+			for(Athlete athleteEntity : entity) {
+				athleteDto.setId(String.valueOf(athleteEntity.getId()));
+				athleteDto.setName(athleteEntity.getName());
+				athleteDto.setSurname(athleteEntity.getSurname());
+				athleteDto.setFiscalCode(athleteEntity.getFiscalCode());
+				athleteDto.setTotalScore(String.valueOf(athleteEntity.getTotalScore()));
+				athleteDto.setGoldMedals(String.valueOf(athleteEntity.getGoldMedals()));
+				athleteDto.setSilverMedals(String.valueOf(athleteEntity.getSilverMedals()));
+				athleteDto.setBronzeMedals(String.valueOf(athleteEntity.getBronzeMedals()));
+				athleteDtoList.add(athleteDto);
+			}
+		}
+        return athleteDtoList;
     }
 
 	@Override

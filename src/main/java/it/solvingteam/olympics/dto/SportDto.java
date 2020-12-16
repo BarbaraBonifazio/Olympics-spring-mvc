@@ -1,16 +1,14 @@
-package it.solvingteam.olympics.dto.messages;
+package it.solvingteam.olympics.dto;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class CompetitionDto {
+public class SportDto {
 
 	@NotNull(message = "The id doesn't exist")
 	private String id;
 	@NotEmpty(message = "Required field")
 	private String name;
-	
-	private SportDto sportDto;
 	
 	public String getId() {
 		return id;
@@ -23,12 +21,6 @@ public class CompetitionDto {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public SportDto getSportDto() {
-		return sportDto;
-	}
-	public void setSportDto(SportDto sportDto) {
-		this.sportDto = sportDto;
 	}
 	
 }

@@ -29,17 +29,17 @@ public class AuthController {
         return "auth/signup";
     }
 
-    @PostMapping("signup")
-    public String signup(@Valid @ModelAttribute("userSignupModel") UserSignupMessageDto userSignupMessageDto, BindingResult bindingResult) {
-        userSignupMessageValidator.validate(userSignupMessageDto, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            return "auth/signup";
-        } else {
-            userService.signup(userSignupMessageDto);
-            return "redirect:/auth/signin";
-        }
-    }
+//    @PostMapping("signup")
+//    public String signup(@Valid @ModelAttribute("userSignupModel") UserSignupMessageDto userSignupMessageDto, BindingResult bindingResult) {
+//        userSignupMessageValidator.validate(userSignupMessageDto, bindingResult);
+//
+//        if (bindingResult.hasErrors()) {
+//            return "auth/signup";
+//        } else {
+//            userService.signup(userSignupMessageDto);
+//            return "redirect:/auth/signin";
+//        }
+//    }
 
     @GetMapping("signin")
     public String signin(Model model) {

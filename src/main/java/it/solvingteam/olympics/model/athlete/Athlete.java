@@ -14,7 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import it.solvingteam.olympics.model.Person;
-import it.solvingteam.olympics.model.Role;
 import it.solvingteam.olympics.model.enrollment.Enrollment;
 import it.solvingteam.olympics.model.nationRepresentative.NationRepresentative;
 import it.solvingteam.olympics.model.sport.Sport;
@@ -30,9 +29,6 @@ public class Athlete extends Person {
 
 	@Enumerated(EnumType.STRING)
 	private AthleteStatus status;
-
-	@Enumerated(EnumType.STRING)
-	private Role role;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", nullable = false)
@@ -88,14 +84,6 @@ public class Athlete extends Person {
 
 	public void setStatus(AthleteStatus status) {
 		this.status = status;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
 	}
 
 	public User getUser() {
