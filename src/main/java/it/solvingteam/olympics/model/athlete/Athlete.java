@@ -3,6 +3,7 @@ package it.solvingteam.olympics.model.athlete;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -12,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import it.solvingteam.olympics.model.Person;
 import it.solvingteam.olympics.model.enrollment.Enrollment;
@@ -30,8 +32,8 @@ public class Athlete extends Person {
 	@Enumerated(EnumType.STRING)
 	private AthleteStatus status;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false)
+	@OneToOne(cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	private User user;
 
 	@ManyToOne(fetch = FetchType.LAZY)

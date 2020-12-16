@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+<meta charset="ISO-8859-1">
+<title>Delete</title>
+</head>
+<body>
+		<div class='card'>
+			<div class='card-header'>
+				<h1>Confermi di voler eliminare questo Rappresentante Nazionale?</h1>
+			</div>
+
+
+			<div class='card-body'>
+				<div class="form-row">
+				
+					<div class="form-group col-md-6">	
+						<a th:href="@{/organizer}">Annulla</a>	
+					</div>
+					
+					<div th:object="${nationRepresentativeDelete}">
+						<a th:href="@{/organizer/executeDeleteNationRepresentative/
+							{idNationRepresentativeDelete}(idNationRepresentativeDelete=*{idNationRepresentativeDelete})}">
+						Conferma</a>
+					</div>
+				</div>
+			</div>
+		</div>
+</body>
+</html>

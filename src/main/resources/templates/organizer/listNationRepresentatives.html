@@ -6,10 +6,12 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<div class="alert alert-danger" style="color:red" th:if="${errorMessage}"	th:text="${errorMessage}" role="alert"></div>
+<div class="alert alert-success" style="color:green" th:if="${successMessage}" th:text="${successMessage}" role="alert"></div>
 <p><a th:href="@{/}">Indietro</a></p>
-<h1>Dashboard Rappresentante</h1>
+<h1>Dashboard Rappresentante Nazione</h1>
 <div>
-    <form action="#" th:action="@{/nationRepresentative/registerRepresentationOrganizzatore}" th:object="${searchFilters}" method="get">
+    <form action="#" th:action="@{/organizer}" th:object="${searchFilters}" method="get">
         <p>Nome: <input th:field="*{name}" type="text"></p>
         <p>Cognome: <input th:field="*{surname}" type="text"></p>
         <p>Codice Fiscale: <input th:field="*{fiscalCode}" type="text"></p>
@@ -20,7 +22,7 @@
 	    <option th:each="nation : ${nationRepresentativeSearchNation}" th:value="${nation.id}" th:text="${nation.name}"></option>
 		</select>
 		<hr>
-        <p><input type="submit" value="Cerca"/></p>    <p><a th:href="@{/nationRepresentative/signup}">Registra Nuovo Rappresentante</a></p>
+        <p><input type="submit" value="Cerca"/></p>  <p><a th:href="@{/organizer/prepareInsertNationRepresentative}">Registra Nuovo Rappresentante</a></p>
        
     </form>
 </div>
@@ -45,9 +47,9 @@
         <td th:text="*{nationDto.name}"></td>
         
         <td>
-        <a th:href="@{/nationRepresentative/show/{nationRepresentativeId}(nationRepresentativeId=*{id})}">Visualizza</a>
-        <a th:href="@{/nationRepresentative/update/{nationRepresentativeId}(nationRepresentativeId=*{id})}">Modifica</a>
-        <a th:href="@{/nationRepresentative/delete/{idNationRepresentativeDelete}(idNationRepresentativeDelete=*{id})}">Elimina</a>
+        <a th:href="@{/organizer/showNationRepresentative/{nationRepresentativeId}(nationRepresentativeId=*{id})}">Visualizza</a>
+        <a th:href="@{/organizer/prepareUpdateNationRepresentative/{nationRepresentativeId}(nationRepresentativeId=*{id})}">Modifica</a>
+        <a th:href="@{/organizer/prepareDeleteNationRepresentative/{idNationRepresentativeDelete}(idNationRepresentativeDelete=*{id})}">Elimina</a>
         </td>
     </tr>
     </tbody>

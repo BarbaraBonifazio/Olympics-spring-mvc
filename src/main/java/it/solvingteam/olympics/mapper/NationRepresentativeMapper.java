@@ -67,11 +67,13 @@ public class NationRepresentativeMapper extends AbstractMapper<NationRepresentat
         nationRepresentative.setName(dto.getName());
         nationRepresentative.setSurname(dto.getSurname());
         nationRepresentative.setFiscalCode(dto.getFiscalCode());
+        nationRepresentative.setUser(userMapper.convertDtoToEntity(dto.getUserDto()));
+        nationRepresentative.setNation(nationMapper.convertDtoToEntity(dto.getNationDto()));
         
         return nationRepresentative;
 	}
 	
-	public NationRepresentative convertDtoToEntity(NationRepresentativeInsertMessageDto nationRepresentativeInsertMessageDto) {
+	public NationRepresentative convertNationRepresentativeInsertDtoToEntity(NationRepresentativeInsertMessageDto nationRepresentativeInsertMessageDto) {
 		if (nationRepresentativeInsertMessageDto == null) {
             return null;
         }

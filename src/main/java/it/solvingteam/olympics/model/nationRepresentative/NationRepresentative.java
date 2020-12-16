@@ -7,7 +7,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -19,15 +18,15 @@ import it.solvingteam.olympics.model.user.User;
 @Entity
 public class NationRepresentative extends Person{
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
     @JoinColumn(name = "nation_id", referencedColumnName = "id")
 	private Nation nation;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "nationRepresentative", orphanRemoval = true)
 	private Set<Athlete> athletes = new HashSet<>();
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false)
+	@OneToOne(cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	private User user;
 
 	public Nation getNation() {

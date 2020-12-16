@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Sign-in</title>
+    <title>Register</title>
     
      <!-- Required meta tags -->
 	  <meta charset="utf-8">
@@ -31,10 +31,10 @@
 <body class="text-center">
 <main role="main" class="container">
 <div class='card-body' style="width: 18rem;">
-<form class="form-signin" action="#" th:action="@{/nationRepresentative/signup}" method="post" th:object="${nationRepresentativeInsertModel}" 
+<form class="form-signin" action="#" th:action="@{/organizer/executeInsertNationRepresentative}" method="post" th:object="${nationRepresentativeInsertModel}" 
 					 Style="margin:200px">
-
-
+<a th:href="@{/organizer}">Indietro</a>
+<hr>
 <h2 class="h2 mb-2 font-weight-normal" style="color:#0056b3">Registra Rappresentante Nazione</h2>
 <br>
 

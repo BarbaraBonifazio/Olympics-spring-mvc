@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import it.solvingteam.olympics.dto.messages.NationRepresentativeInsertMessageDto;
+import it.solvingteam.olympics.dto.messages.UserSignupMessageDto;
 import it.solvingteam.olympics.model.Role;
 import it.solvingteam.olympics.model.user.User;
 import it.solvingteam.olympics.model.user.UserPrincipal;
@@ -34,7 +35,21 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username);
     }
     
-    public void signupNationRepresentative(NationRepresentativeInsertMessageDto nationRepresentativeInsertMessageDto) {
+    //signup per lo User Organizzatore (al fine di mantenere l'encripting password anche se si farà solo una registrazione da signin)    
+    public void signup(UserSignupMessageDto userSignupMessageDto){
+        String username = userSignupMessageDto.getUsername();
+        String passwordEncoded = passwordEncoder.encode(userSignupMessageDto.getPassword());
+
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(passwordEncoded);
+        user.setRole(Role.ORGANIZZATORE);
+
+        this.userRepository.save(user);
+    }
+    
+  //signup per lo User Rappresentante Nazione
+    public void insertNationRepresentative(NationRepresentativeInsertMessageDto nationRepresentativeInsertMessageDto) {
         String username = nationRepresentativeInsertMessageDto.getUserSignupMessageDto().getUsername();
         String passwordEncoded = passwordEncoder.encode(nationRepresentativeInsertMessageDto.getUserSignupMessageDto().getPassword());
         
@@ -53,5 +68,19 @@ public class UserService implements UserDetailsService {
     	return this.userRepository.findById(id);
     }
     
-    
+//    //signup per lo User Atleta
+//    public void signupAthlete(AthleteInsertMessageDto athleteInsertMessageDto) {
+//        String username = athleteInsertMessageDto.getUserSignupMessageDto().getUsername();
+//        String passwordEncoded = passwordEncoder.encode(athleteInsertMessageDto.getUserSignupMessageDto().getPassword());
+//        
+//        User user = new User();
+//        user.setName(athleteInsertMessageDto.getName());
+//        user.setSurname(athleteInsertMessageDto.getSurname());
+//        user.setFiscalCode(athleteInsertMessageDto.getFiscalCode());
+//        user.setUsername(username);
+//        user.setPassword(passwordEncoded);
+//        user.setRole(Role.ATLETA);
+//
+//        this.userRepository.save(user);
+//    }
 }
