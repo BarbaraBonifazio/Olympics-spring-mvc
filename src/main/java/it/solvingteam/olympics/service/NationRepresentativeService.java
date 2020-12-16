@@ -20,6 +20,7 @@ import it.solvingteam.olympics.dto.messages.NationRepresentativeSearchFilterDto;
 import it.solvingteam.olympics.dto.messages.NationRepresentativeShowDto;
 import it.solvingteam.olympics.mapper.NationMapper;
 import it.solvingteam.olympics.mapper.NationRepresentativeMapper;
+import it.solvingteam.olympics.mapper.UserMapper;
 import it.solvingteam.olympics.model.nation.Nation;
 import it.solvingteam.olympics.model.nationRepresentative.NationRepresentative;
 import it.solvingteam.olympics.model.user.User;
@@ -42,6 +43,9 @@ public class NationRepresentativeService {
 	
 	@Autowired
 	NationMapper nationMapper;
+	
+	@Autowired
+	UserMapper userMapper;
 	
 	
 	@Autowired
@@ -108,7 +112,7 @@ public class NationRepresentativeService {
 	        return nationRepresentativeMapper.convertEntityToDto(entityManager.createQuery(cq).getResultList());
 	}
 	
-	public NationRepresentativeShowDto NationRepresentativeEntityToNationRepresentativeDto(Long id) {
+	public NationRepresentativeShowDto nationRepresentativeEntityToNationRepresentativeDto(Long id) {
 		NationRepresentative nationRepresentative = this.findById(id).orElse(null);
     	return nationRepresentativeMapper.convertEntityToNationRepresentativeShow(nationRepresentative);
     }
@@ -128,5 +132,20 @@ public class NationRepresentativeService {
 	public void delete(NationRepresentativeDto nationRepresentativeDtoDelete) {
 		NationRepresentative nationRepresentative = this.findById(Long.parseLong(nationRepresentativeDtoDelete.getId())).orElse(null);
 		this.nationRepresentativeRepository.delete(nationRepresentative);
+	}
+	
+	public NationRepresentative getNationReprEntityFromNationReprDto(NationRepresentativeDto nationRepresentativeDto) {
+		NationRepresentative nationRepresentative = this.findById(Long.parseLong(nationRepresentativeDto.getId())).orElse(null);
+		return nationRepresentative;
+	}
+
+	public void update(NationRepresentativeDto nationRepresentativeDto) {
+//		NationRepresentative nationRepresentative = this.findById(Long.parseLong(nationRepresentativeDto.getId())).orElse(null);
+		NationRepresentative nationRepresentative = nationRepresentativeMapper.convertDtoToEntityUpdate(nationRepresentativeDto);
+		User userUpdated = userService.update(nationRepresentative.getUser());
+		nationRepresentative.setUser(userUpdated);
+		Nation nation = this.nationService.findById(nationRepresentative.getNation().getId()).orElse(null);
+		nationRepresentative.setNation(nation);
+		this.nationRepresentativeRepository.save(nationRepresentative);
 	}
 }

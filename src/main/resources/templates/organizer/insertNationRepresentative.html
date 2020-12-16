@@ -59,7 +59,7 @@
     <p>Nazione</p>
     <select th:field="*{nation}">
     <option value="">Seleziona Nazione</option>
-    <option th:each="nation : ${nationRepresentativeInsertNation}" th:value="${nation.id}" th:text="${nation.name}"></option>
+    <option th:each="nation : ${nationsList}" th:value="${nation.id}" th:text="${nation.name}"></option>
 	</select>
 	<p style="color:red" th:if="${#fields.hasErrors('nation')}" th:errors="*{nation}"></p>
 	<hr>

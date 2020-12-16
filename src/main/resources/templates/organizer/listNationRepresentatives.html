@@ -19,7 +19,7 @@
         <p>Nazione:</p>
 	    <select th:field="*{nation}">
 	    <option value="">Seleziona Nazione</option>
-	    <option th:each="nation : ${nationRepresentativeSearchNation}" th:value="${nation.id}" th:text="${nation.name}"></option>
+	    <option th:each="nation : ${nationsList}" th:value="${nation.id}" th:text="${nation.name}"></option>
 		</select>
 		<hr>
         <p><input type="submit" value="Cerca"/></p>  <p><a th:href="@{/organizer/prepareInsertNationRepresentative}">Registra Nuovo Rappresentante</a></p>
@@ -47,8 +47,8 @@
         <td th:text="*{nationDto.name}"></td>
         
         <td>
-        <a th:href="@{/organizer/showNationRepresentative/{nationRepresentativeId}(nationRepresentativeId=*{id})}">Visualizza</a>
-        <a th:href="@{/organizer/prepareUpdateNationRepresentative/{nationRepresentativeId}(nationRepresentativeId=*{id})}">Modifica</a>
+        <a th:href="@{/organizer/showNationRepresentative/{idNationRepresentative}(idNationRepresentative=*{id})}">Visualizza</a>
+        <a th:href="@{/organizer/prepareUpdateNationRepresentative/{idNationRepresentative}(idNationRepresentative=*{id})}">Modifica</a>
         <a th:href="@{/organizer/prepareDeleteNationRepresentative/{idNationRepresentativeDelete}(idNationRepresentativeDelete=*{id})}">Elimina</a>
         </td>
     </tr>

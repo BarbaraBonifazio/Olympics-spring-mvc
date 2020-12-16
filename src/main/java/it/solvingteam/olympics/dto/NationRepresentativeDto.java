@@ -1,17 +1,22 @@
 package it.solvingteam.olympics.dto;
 
+import java.util.Set;
+
+import javax.validation.Valid;
+
 public class NationRepresentativeDto extends PersonDto{
 
-	private AthleteDto athleteDto;
+	private Set<AthleteDto> athletesDtoList;
 	private UserDto userDto;
+	@Valid
 	private NationDto nationDto;
 
-	public AthleteDto getAthleteDto() {
-		return athleteDto;
+	public Set<AthleteDto> getAthletesDtoList() {
+		return athletesDtoList;
 	}
 
-	public void setAthleteDto(AthleteDto athleteDto) {
-		this.athleteDto = athleteDto;
+	public void setAthletesDtoList(Set<AthleteDto> athletesDtoList) {
+		this.athletesDtoList = athletesDtoList;
 	}
 
 	public UserDto getUserDto() {

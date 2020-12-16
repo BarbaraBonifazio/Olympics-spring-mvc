@@ -1,7 +1,6 @@
 package it.solvingteam.olympics.dto.messages;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 
 public class NationRepresentativeInsertMessageDto {

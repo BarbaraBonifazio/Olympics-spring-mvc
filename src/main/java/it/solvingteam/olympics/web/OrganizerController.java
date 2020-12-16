@@ -22,11 +22,13 @@ import it.solvingteam.olympics.dto.messages.NationRepresentativeDeleteMessageDto
 import it.solvingteam.olympics.dto.messages.NationRepresentativeInsertMessageDto;
 import it.solvingteam.olympics.dto.messages.NationRepresentativeSearchFilterDto;
 import it.solvingteam.olympics.dto.messages.NationRepresentativeShowDto;
+import it.solvingteam.olympics.model.user.User;
 import it.solvingteam.olympics.service.NationRepresentativeService;
 import it.solvingteam.olympics.service.NationService;
 import it.solvingteam.olympics.service.UserService;
 import it.solvingteam.olympics.web.validators.NationRepresentativeDeleteValidator;
 import it.solvingteam.olympics.web.validators.NationRepresentativeInsertValidator;
+import it.solvingteam.olympics.web.validators.NationRepresentativeUpdateValidator;
 import it.solvingteam.olympics.web.validators.UserSignupMessageValidator;
 
 @Controller
@@ -52,6 +54,9 @@ public class OrganizerController {
     @Autowired
     private NationRepresentativeDeleteValidator nationRepresentativeDeleteValidator;
     
+    @Autowired
+    private NationRepresentativeUpdateValidator nationRepresentativeUpdateValidator;
+    
     @Secured("ROLE_ORGANIZZATORE")
     @GetMapping
 	public String nationRepresentativeDashBoard(NationRepresentativeSearchFilterDto nationRepresentativeSearchFilterDto, Model model, 
@@ -60,7 +65,7 @@ public class OrganizerController {
 
 		model.addAttribute("nationRepresentativeDeleteModel", new NationRepresentativeDeleteMessageDto());
 		model.addAttribute("searchFilters", nationRepresentativeSearchFilterDto);
-		model.addAttribute("nationRepresentativeSearchNation", nationService.findAll());
+		model.addAttribute("nationsList", nationService.findAll());
 		model.addAttribute("nationRepresentatives", allNationRepresentatives);
 
 		return "organizer/listNationRepresentatives";
@@ -72,7 +77,7 @@ public class OrganizerController {
     @GetMapping("prepareInsertNationRepresentative")
     public String prepareInsertNationRepresentative(Model model) {
     	model.addAttribute("nationRepresentativeInsertModel", new NationRepresentativeInsertMessageDto());
-    	model.addAttribute("nationRepresentativeInsertNation", nationService.findAll());
+    	model.addAttribute("nationsList", nationService.findAll());
         return "organizer/insertNationRepresentative";
     }
 
@@ -88,13 +93,13 @@ public class OrganizerController {
         if (bindingResult.hasErrors()) {
         	model.addAttribute("nationRepresentativeDeleteModel", new NationRepresentativeDeleteMessageDto());
             model.addAttribute("searchFilters", nationRepresentativeSearchFilterDto);
-        	model.addAttribute("nationRepresentativeInsertNation", nationService.findAll());
+        	model.addAttribute("nationsList", nationService.findAll());
             return "organizer/insertNationRepresentative";
         } else {	
-            userService.insertNationRepresentative(nationRepresentativeInsertMessageDto);
+            userService.insertUserNationRepresentative(nationRepresentativeInsertMessageDto);
             model.addAttribute("nationRepresentativeDeleteModel", new NationRepresentativeDeleteMessageDto());
             model.addAttribute("searchFilters", nationRepresentativeSearchFilterDto);
-            model.addAttribute("nationRepresentativeInsertNation", nationService.findAll());
+            model.addAttribute("nationsList", nationService.findAll());
             nationRepresentativeService.insert(nationRepresentativeInsertMessageDto);
             redirectAttributes.addFlashAttribute("successMessage", "Insert Nation Representative Successful!");
             return "redirect:/organizer";
@@ -108,11 +113,11 @@ public class OrganizerController {
 //    }
     
     @GetMapping("showNationRepresentative/{id}")
-	public String show(@PathVariable Long id, Model model, NationRepresentativeSearchFilterDto nationRepresentativeSearchFilterDto, 
+	public String showNationRepresentative(@PathVariable Long id, Model model, NationRepresentativeSearchFilterDto nationRepresentativeSearchFilterDto, 
 						NationRepresentativeDeleteMessageDto nationRepresentativeDeleteMessageDto) {
 		if (id != null) {
 			NationRepresentativeShowDto nationRepresentativeDtoShow = 
-										nationRepresentativeService.NationRepresentativeEntityToNationRepresentativeDto(id);
+										nationRepresentativeService.nationRepresentativeEntityToNationRepresentativeDto(id);
 			model.addAttribute("nationRepresentativeShow", nationRepresentativeDtoShow);
 		} else {
 			List<NationRepresentativeDto> allNationRepresentatives = 
@@ -120,11 +125,60 @@ public class OrganizerController {
 
 			model.addAttribute("nationRepresentativeDeleteModel", new NationRepresentativeDeleteMessageDto());
 			model.addAttribute("searchFilters", nationRepresentativeSearchFilterDto);
-			model.addAttribute("nationRepresentativeSearchNation", nationService.findAll());
+			model.addAttribute("nationsList", nationService.findAll());
 			model.addAttribute("nationRepresentatives", allNationRepresentatives);
 			return "redirect:/organizer";
 		}
 		return "organizer/showNationRepresentative";
+	}
+    
+    @GetMapping("prepareUpdateNationRepresentative/{id}")
+	public String updateNationRepresentative(@PathVariable Long id,
+			@Valid @ModelAttribute("deliveryUpdateModel") NationRepresentativeDto nationRepresentativeDto, BindingResult bindingResult,
+			Model model, RedirectAttributes redirectAttributes, NationRepresentativeSearchFilterDto nationRepresentativeSearchFilterDto, 
+			NationRepresentativeDeleteMessageDto nationRepresentativeDeleteMessageDto) {
+
+		if (id != null || !bindingResult.hasErrors()) {
+			NationRepresentativeDto nationRepresentativeDtoUpdate = nationRepresentativeService.nationReprEntityToNationReprDto(id);
+			model.addAttribute("nationsList", nationService.findAll());
+			model.addAttribute("nationRepresentativeUpdateModel", nationRepresentativeDtoUpdate);
+			return "organizer/updateNationRepresentative";
+		} else {
+			List<NationRepresentativeDto> allNationRepresentatives = 
+					nationRepresentativeService.findBySearchParameter(nationRepresentativeSearchFilterDto);
+			model.addAttribute("nationRepresentativeDeleteModel", new NationRepresentativeDeleteMessageDto());
+			model.addAttribute("searchFilters", nationRepresentativeSearchFilterDto);
+			model.addAttribute("nationsList", nationService.findAll());
+			model.addAttribute("nationRepresentatives", allNationRepresentatives);
+			redirectAttributes.addFlashAttribute("errorMessage", "Couldn't prepare update Nation Representative Page! Look out for Errors");
+			return "redirect:/organizer";
+		}
+	}
+
+	@PostMapping("executeUpdateNationRepresentative")
+	public String executeUpdateNationRepresentative(@Valid @ModelAttribute("nationRepresentativeUpdateModel") 
+			NationRepresentativeDto nationRepresentativeDto, BindingResult bindingResult, Model model, 
+			NationRepresentativeSearchFilterDto nationRepresentativeSearchFilterDto, 
+			NationRepresentativeDeleteMessageDto nationRepresentativeDeleteMessageDto, RedirectAttributes redirectAttributes) {
+		
+		nationRepresentativeUpdateValidator.validate(nationRepresentativeDto, bindingResult);
+		
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("nationsList", nationService.findAll());
+			return "organizer/updateNationRepresentative";
+		} else {
+			List<NationRepresentativeDto> allNationRepresentatives = 
+					nationRepresentativeService.findBySearchParameter(nationRepresentativeSearchFilterDto);
+			model.addAttribute("nationRepresentativeDeleteModel", new NationRepresentativeDeleteMessageDto());
+			model.addAttribute("searchFilters", nationRepresentativeSearchFilterDto);
+			model.addAttribute("nationsList", nationService.findAll());
+			model.addAttribute("nationRepresentatives", allNationRepresentatives);
+			User user = userService.findById(Long.parseLong(nationRepresentativeDto.getUserDto().getId())).orElse(null);
+			nationRepresentativeDto.setUserDto(userService.userDtoFromUserEntity(user));
+			nationRepresentativeService.update(nationRepresentativeDto);
+			redirectAttributes.addFlashAttribute("successMessage", "The Nation Representative has been successfully updated!");
+			return "redirect:/organizer";
+		}
 	}
     
     @GetMapping("prepareDeleteNationRepresentative/{idNationRepresentativeDelete}")
@@ -142,7 +196,7 @@ public class OrganizerController {
 				
 				model.addAttribute("nationRepresentativeDeleteModel", nationRepresentativeDeleteMessageDto);
 	            model.addAttribute("searchFilters", nationRepresentativeSearchFilterDto);
-	        	model.addAttribute("nationRepresentativeSearchNation", nationService.findAll());
+	        	model.addAttribute("nationsList", nationService.findAll());
 	        	model.addAttribute("nationRepresentatives", allNationRepresentatives);
 	            return "redirect:/organizer";
 	
@@ -155,7 +209,7 @@ public class OrganizerController {
 	}
     
     @GetMapping("executeDeleteNationRepresentative/{idNationRepresentativeDelete}")
-	public String executeDelete(@Valid @ModelAttribute("nationRepresentativeDeleteModel") 
+	public String executeDeleteNationRepresentative(@Valid @ModelAttribute("nationRepresentativeDeleteModel") 
 								NationRepresentativeDeleteMessageDto nationRepresentativeDeleteMessageDto, RedirectAttributes redirectAttributes) {
 		
 		NationRepresentativeDto nationRepresentativeDtoDelete = 

@@ -1,13 +1,11 @@
 package it.solvingteam.olympics.dto;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class NationDto {
 	
 	@NotNull(message = "The id doesn't exist")
 	private String id;
-	@NotEmpty(message = "Required field")
 	private String name;
 	
 	public String getId() {

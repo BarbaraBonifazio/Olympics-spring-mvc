@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+<meta charset="ISO-8859-1">
+<title>Update</title>
+</head>
+<body>
+<a th:href="@{/organizer}">Indietro</a>
+<h1>Update Customer</h1>
+<form action="#" th:action="@{/organizer/executeUpdateNationRepresentative}" method="post" th:object="${nationRepresentativeUpdateModel}">
+
+	<input type="hidden" th:field="*{id}">
+	<p style="color:red" th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></p>
+	
+	<input type="hidden" th:field="*{userDto.id}">
+	<p style="color:red" th:if="${#fields.hasErrors('userDto')}" th:errors="*{userDto}"></p>
+	
+    <p>Nome: <input type="text" th:field="*{name}"/></p>
+    <p style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+
+    <p>Cognome: <input type="text" th:field="*{surname}"/></p>
+    <p style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
+
+    <p>Codice Fiscale: <input type="text" th:field="*{fiscalCode}"/></p>
+    <p style="color:red" th:if="${#fields.hasErrors('fiscalCode')}" th:errors="*{fiscalCode}"></p>
+
+	<p>Nazione</p>
+    <select th:field="*{nationDto.id}">
+    <option th:each="nation : ${nationsList}" th:selected="*{nationDto.name}" th:value="${nation.id}" th:text="${nation.name}"></option>
+	</select>
+	<p style="color:red" th:if="${#fields.hasErrors('nationDto')}" th:errors="*{nationDto}"></p>
+	<hr>
+
+    <p><input type="submit" value="Conferma"/></p>
+    
+</form>
+</body>
+</html>

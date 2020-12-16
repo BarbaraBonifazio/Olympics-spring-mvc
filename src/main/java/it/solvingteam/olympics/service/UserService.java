@@ -9,8 +9,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import it.solvingteam.olympics.dto.UserDto;
 import it.solvingteam.olympics.dto.messages.NationRepresentativeInsertMessageDto;
 import it.solvingteam.olympics.dto.messages.UserSignupMessageDto;
+import it.solvingteam.olympics.mapper.UserMapper;
 import it.solvingteam.olympics.model.Role;
 import it.solvingteam.olympics.model.user.User;
 import it.solvingteam.olympics.model.user.UserPrincipal;
@@ -24,6 +26,9 @@ public class UserService implements UserDetailsService {
     
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -49,7 +54,7 @@ public class UserService implements UserDetailsService {
     }
     
   //signup per lo User Rappresentante Nazione
-    public void insertNationRepresentative(NationRepresentativeInsertMessageDto nationRepresentativeInsertMessageDto) {
+    public void insertUserNationRepresentative(NationRepresentativeInsertMessageDto nationRepresentativeInsertMessageDto) {
         String username = nationRepresentativeInsertMessageDto.getUserSignupMessageDto().getUsername();
         String passwordEncoded = passwordEncoder.encode(nationRepresentativeInsertMessageDto.getUserSignupMessageDto().getPassword());
         
@@ -67,6 +72,15 @@ public class UserService implements UserDetailsService {
     public Optional<User> findById(Long id) {
     	return this.userRepository.findById(id);
     }
+
+	public UserDto userDtoFromUserEntity(User user) {
+		return userMapper.convertEntityToDto(user);
+	}
+
+	public User update(User user) {
+		user.setRole(Role.RAPPRESENTANTE_NAZIONE);
+		return this.userRepository.save(user);
+	}
     
 //    //signup per lo User Atleta
 //    public void signupAthlete(AthleteInsertMessageDto athleteInsertMessageDto) {

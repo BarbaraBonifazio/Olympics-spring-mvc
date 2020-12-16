@@ -97,4 +97,33 @@ public class NationRepresentativeMapper extends AbstractMapper<NationRepresentat
         
         return nationRepresentative;
 	}
+	
+	public NationRepresentative convertDtoToEntityUpdate(NationRepresentativeDto dto) {
+		if (dto == null) {
+            return null;
+        }
+		
+        NationRepresentative nationRepresentative = new NationRepresentative();
+
+        if (dto.getId() != null) {
+        	nationRepresentative.setId(Long.valueOf(dto.getId()));
+        }
+
+        nationRepresentative.setName(dto.getName());
+        nationRepresentative.setSurname(dto.getSurname());
+        nationRepresentative.setFiscalCode(dto.getFiscalCode());
+        nationRepresentative.setNation(nationMapper.convertDtoToEntity(dto.getNationDto()));
+        
+        User user = new User();
+        user.setId(Long.parseLong(dto.getUserDto().getId()));
+        user.setName(dto.getName());
+        user.setSurname(dto.getSurname());
+        user.setFiscalCode(dto.getFiscalCode());
+        user.setUsername(dto.getUserDto().getUsername());
+        user.setPassword(dto.getUserDto().getPassword());
+        
+        nationRepresentative.setUser(user);
+        
+        return nationRepresentative;
+	}
 }
